@@ -70,7 +70,7 @@ function Login() {
           <Avatar className={classes.avatar}>
             <MenuBookTwoToneIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography button component="h1" variant="h5">
             Sign in
           </Typography>
           <form className={classes.form} noValidate>

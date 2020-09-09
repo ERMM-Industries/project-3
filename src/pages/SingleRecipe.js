@@ -23,7 +23,7 @@ import { mainListItems, secondaryListItems } from '../components/listItems/listI
 import AdGrid from '../components/AdGrid/AdGrid';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
-import RecipeCard from '../components/RecipeCard/RecipeCard'
+import RecipeGrid from '../components/RecipeGrid/RecipeGrid'
 
 function Copyright() {
   return (
@@ -157,7 +157,7 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
-function Recipes() {
+function SingleRecipe() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -226,65 +226,27 @@ function Recipes() {
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
-            {/* RecipeCards */}
-            <Grid item xs={12} md={8} lg={4}>
+            {/* InputRecipe2 */}
+            <Grid item xs={12} md={8} lg={9}>
               
-                <RecipeCard />
-              
-            </Grid>
-            {/* RecipeCards */}
-            <Grid item xs={12} md={8} lg={4}>
-              
-                <RecipeCard />
+                <RecipeGrid />
               
             </Grid>
-            {/* RecipeCards */}
-            <Grid item xs={12} md={8} lg={4}>
-              
-                <RecipeCard />
-              
-            </Grid>
-            
-            
-          </Grid>
-          <Grid container spacing={3}>
-            {/* RecipeCards */}
-            <Grid item xs={12} md={8} lg={4}>
-              
-                <RecipeCard />
-              
-            </Grid>
-            {/* RecipeCards */}
-            <Grid item xs={12} md={8} lg={4}>
-              
-                <RecipeCard />
-              
-            </Grid>
-            {/* RecipeCards */}
-            <Grid item xs={12} md={8} lg={4}>
-              
-                <RecipeCard />
-              
-            </Grid>
-            
-            
-          </Grid>
-          <Grid container spacing={3}>
-          {/* Recent AdGrid */}
-          <Grid item xs={12} md={4} lg={3}>
+            {/* Recent AdGrid */}
+            <Grid item xs={12} md={4} lg={3}>
               <Paper className={fixedHeightPaper}>
                 <AdGrid />
               </Paper>
             </Grid>
+            
           </Grid>
           <Box pt={4}>
             <Copyright />
           </Box>
         </Container>
-
       </main>
     </div>
   );
 }
 
-export default Recipes
+export default SingleRecipe
