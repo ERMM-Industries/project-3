@@ -25,6 +25,8 @@ import AdGrid from '../components/AdGrid/AdGrid';
 import RecipeBox from '../components/RecipeBox/RecipeBox';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
+import LogoutButton from '../components/LogoutButton/logout-button';
+
 
 function Copyright() {
   return (
@@ -204,6 +206,7 @@ function SearchPage() {
               <NotificationsIcon />
             </Badge>
           </IconButton>
+          <LogoutButton />
         </Toolbar>
       </AppBar>
       <Drawer

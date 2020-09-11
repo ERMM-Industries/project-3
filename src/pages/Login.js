@@ -12,8 +12,8 @@ import Grid from '@material-ui/core/Grid';
 import MenuBookTwoToneIcon from '@material-ui/icons/MenuBookTwoTone';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-
-
+import LoginButton from '../components/LoginButton/login-button';
+import SignUpButton from '../components/SignUpButton/signup-button';
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -57,6 +57,11 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
+
+
+
+
+
 
 function Login() {
   const classes = useStyles();
@@ -106,8 +111,10 @@ function Login() {
               variant="contained"
               color="primary"
               className={classes.submit}
+              
             >
-              Sign In
+              <LoginButton />
+              <SignUpButton />
             </Button>
             <Grid container>
               <Grid item xs>

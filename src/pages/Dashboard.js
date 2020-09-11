@@ -24,6 +24,8 @@ import Feed from '../components/Feed/Feed';
 import AdGrid from '../components/AdGrid/AdGrid';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
+import LogoutButton from '../components/LogoutButton/logout-button';
+
 
 function Copyright() {
   return (
@@ -203,6 +205,7 @@ function Dashboard() {
               <NotificationsIcon />
             </Badge>
           </IconButton>
+          <LogoutButton />
         </Toolbar>
       </AppBar>
       <Drawer

@@ -23,6 +23,8 @@ import { mainListItems, secondaryListItems } from '../components/listItems/listI
 import RecipeBox from '../components/RecipeBox/RecipeBox';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
+import LogoutButton from '../components/LogoutButton/logout-button';
+
 
 function Copyright() {
   return (
@@ -202,6 +204,7 @@ function Friends() {
               <NotificationsIcon />
             </Badge>
           </IconButton>
+          <LogoutButton />
         </Toolbar>
       </AppBar>
       <Drawer
