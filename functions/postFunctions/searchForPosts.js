@@ -1,4 +1,5 @@
 const Post = require("../../schemas/Post"); //access the Post schema
+const { validationResult } = require("express-validator"); //check the values that we post or put
 
 module.exports = async (req, res) => {
   const { searchInput } = req.body;

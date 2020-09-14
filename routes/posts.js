@@ -1,9 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const Post = require("../schemas/Post");
 const authentication = require("../middleware/authentication");
-const User = require("../schemas/User");
-const { check, validationResult } = require("express-validator");
+const { check } = require("express-validator");
 
 //connection to all the functions that allow connectivity to datatbase
 const getPosts = require("../functions/postFunctions/getPosts");
