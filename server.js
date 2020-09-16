@@ -16,13 +16,10 @@ app.use(express.json({ extended: false }));
 app.use("/api/posts", require("./routes/posts.js"));
 app.use("/api/users", require("./routes/users.js"));
 
-<<<<<<< HEAD
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/RecipeDB");
-=======
+// mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/RecipeDB");
 //we specify on which port our app will run (depends if heroku will give us port or we specify on port 3000)
 let PORT = process.env.PORT || 3000;
->>>>>>> 4b6861e92fbc749cc6f07f799edff66cf1beb540
 
 //method to specify on which port we want our app to be with callback function to see if method works
 app.listen(PORT, () => console.log(`Server is on port: ${PORT}`));
