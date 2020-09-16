@@ -1,24 +1,28 @@
 const express = require("express");
-
-const mongoose = require("mongoose");
-const routes = require("./routes");
 const app = express();
-const PORT = process.env.PORT || 3001;
+const connectToDatabase = require("./config/connectToDatabase");
+const cors = require("cors"); // helps prevent an error found on windows
 
-// Define middleware here
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-// Serve up static assets (usually on heroku)
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-}
-// Add routes, both API and view
-app.use(routes);
+//function that connects express app to database
+connectToDatabase();
 
+//we prevent cors policy warning
+app.use(cors());
+
+//allows us to use body json thing to create posts (req.body)
+app.use(express.json({ extended: false }));
+
+//Routes
+app.use("/api/posts", require("./routes/posts.js"));
+app.use("/api/users", require("./routes/users.js"));
+
+<<<<<<< HEAD
 // Connect to the Mongo DB
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/RecipeDB");
+=======
+//we specify on which port our app will run (depends if heroku will give us port or we specify on port 3000)
+let PORT = process.env.PORT || 3000;
+>>>>>>> 4b6861e92fbc749cc6f07f799edff66cf1beb540
 
-// Start the API server
-app.listen(PORT, function() {
-  console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
-});
+//method to specify on which port we want our app to be with callback function to see if method works
+app.listen(PORT, () => console.log(`Server is on port: ${PORT}`));
