@@ -18,7 +18,8 @@ const SignIn = () => {
     data.append("file", image);
     data.append("upload_preset", "new-insta");
     data.append("cloud_name", "dgav9dwqa");
-    fetch("https://res.cloudinary.com/dgav9dwqa/image/upload", {
+    //api cloudinary call
+    fetch("https://api.cloudinary.com/v1_1/dgav9dwqa/image/upload", {
       method: "post",
       body: data,
     })
