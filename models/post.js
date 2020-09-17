@@ -6,13 +6,17 @@ const postSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    body: {
+    ingredients: {
+      type: String,
+      required: true,
+    },
+    instructions: {
       type: String,
       required: true,
     },
     photo: {
       type: String,
-      required: false,
+      required: true,
     },
     likes: [{ type: ObjectId, ref: "User" }],
     comments: [
