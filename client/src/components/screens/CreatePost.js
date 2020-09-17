@@ -42,7 +42,7 @@ const CretePost = () => {
   const postDetails = () => {
     const data = new FormData();
     data.append("file", image);
-    data.append("upload_preset", "new-insta");
+    data.append("upload_preset", "weat-project"); // added database preset
     data.append("cloud_name", "dgav9dwqa");
     //api cloudinary call
     fetch("https://api.cloudinary.com/v1_1/dgav9dwqa/image/upload", {

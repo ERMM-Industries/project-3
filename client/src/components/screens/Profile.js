@@ -21,7 +21,7 @@ const Profile = () => {
     if (image) {
       const data = new FormData();
       data.append("file", image);
-      data.append("upload_preset", "insta-clone");
+      data.append("upload_preset", "weat-project"); //added database preset
       data.append("cloud_name", "dgav9dwqa");
       //api cloudinary call
       fetch("https://api.cloudinary.com/v1_1/dgav9dwqa/image/upload", {
