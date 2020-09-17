@@ -4,7 +4,8 @@ import { useHistory } from "react-router-dom";
 const CretePost = () => {
   const history = useHistory();
   const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
+  const [ingredients, setIngredients] = useState(""); //added set ingredients
+  const [instructions, setInstructions] = useState(""); //added set instructions
   const [image, setImage] = useState("");
   const [url, setUrl] = useState("");
   useEffect(() => {
@@ -17,7 +18,8 @@ const CretePost = () => {
         },
         body: JSON.stringify({
           title,
-          body,
+          ingredients, //added ingredients
+          instructions, //added instructions
           pic: url,
         }),
       })
@@ -74,11 +76,17 @@ const CretePost = () => {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-      <input
+      <input //added ingredients input
         type="text"
-        placeholder="body"
-        value={body}
-        onChange={(e) => setBody(e.target.value)}
+        placeholder="ingredients"
+        value={ingredients}
+        onChange={(e) => setIngredients(e.target.value)}
+      />
+      <input //added instructions input
+        type="text"
+        placeholder="instructions"
+        value={instructions}
+        onChange={(e) => setInstructions(e.target.value)}
       />
       <div className="file-field input-field">
         <div className="btn #64b5f6 blue darken-1">
