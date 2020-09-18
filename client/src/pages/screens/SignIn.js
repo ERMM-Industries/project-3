@@ -4,100 +4,28 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
+import Link2 from '@material-ui/core/Link'; //changed to Link2 from Link
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import MenuBookTwoToneIcon from '@material-ui/icons/MenuBookTwoTone';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import LoginButton from '../components/LoginButton/login-button'; //this may be auth0 - can be deleted
-import SignUpButton from '../components/SignUpButton/signup-button'; //This may be auth0 - can be deleted
+//import LoginButton from '../components/LoginButton/login-button'; //this may be auth0 - can be deleted
+//import SignUpButton from '../components/SignUpButton/signup-button'; //This may be auth0 - can be deleted
 //imports above are from login page
 import React,{useState,useContext,} from 'react'
 import {Link,useHistory} from 'react-router-dom'
 import {UserContext} from '../../App'
 import M from 'materialize-css'
-const SignIn  = ()=>{
-    const {state,dispatch} = useContext(UserContext)
-    const history = useHistory()
-    const [password,setPasword] = useState("")
-    const [email,setEmail] = useState("")
-    const PostData = ()=>{
-        if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
-            M.toast({html: "invalid email",classes:"#c62828 red darken-3"})
-            return
-        }
-        fetch("/signin",{
-            method:"post",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify({
-                password,
-                email
-            })
-        }).then(res=>res.json())
-        .then(data=>{
-            console.log(data)
-           if(data.error){
-              M.toast({html: data.error,classes:"#c62828 red darken-3"})
-           }
-           else{
-               localStorage.setItem("jwt",data.token)
-               localStorage.setItem("user",JSON.stringify(data.user))
-               dispatch({type:"USER",payload:data.user})
-               M.toast({html:"signedin success",classes:"#43a047 green darken-1"})
-               history.push('/')
-           }
-        }).catch(err=>{
-            console.log(err)
-        })
-    }
-   return (
-      <div className="mycard">
-          <div className="card auth-card input-field">
-            <h2>Weat</h2>
-            <input
-            type="text"
-            placeholder="email"
-            value={email}
-            onChange={(e)=>setEmail(e.target.value)}
-            />
-            <input
-            type="password"
-            placeholder="password"
-            value={password}
-            onChange={(e)=>setPasword(e.target.value)}
-            />
-            <button className="btn waves-effect waves-light #64b5f6 blue darken-1"
-            onClick={()=>PostData()}
-            >
-                Login
-            </button>
-            <h5>
-                <Link to="/signup">Dont have an account ?</Link>
-            </h5>
-            <h6>
-                <Link to="/reset">Forgot password ?</Link>
-            </h6>
-    
-        </div>
-      </div>
-   )
-}
-
-
-export default SignIn
-
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © 2020'}
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link2 color="inherit" href="https://material-ui.com/">
         Weat
-      </Link>{' '}
+      </Link2>{' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -135,14 +63,44 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const SignIn = ()=>{
+  const classes = useStyles(); //this is for materialUI???
 
-
-
-
-
-function Login() {
-  const classes = useStyles();
-
+  const {state,dispatch} = useContext(UserContext)
+    const history = useHistory()
+    const [password,setPasword] = useState("")
+    const [email,setEmail] = useState("")
+    const PostData = ()=>{
+        if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
+            M.toast({html: "invalid email",classes:"#c62828 red darken-3"})
+            return
+        }
+        fetch("/signin",{
+            method:"post",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                password,
+                email
+            })
+        }).then(res=>res.json())
+        .then(data=>{
+            console.log(data)
+           if(data.error){
+              M.toast({html: data.error,classes:"#c62828 red darken-3"})
+           }
+           else{
+               localStorage.setItem("jwt",data.token)
+               localStorage.setItem("user",JSON.stringify(data.user))
+               dispatch({type:"USER",payload:data.user})
+               M.toast({html:"signedin success",classes:"#43a047 green darken-1"})
+               history.push('/')
+           }
+        }).catch(err=>{
+            console.log(err)
+        })
+    }
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -155,8 +113,8 @@ function Login() {
           <Typography button component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate>
-            <TextField
+          <div className={classes.form} noValidate>
+            <input
               variant="outlined"
               margin="normal"
               required
@@ -166,8 +124,12 @@ function Login() {
               name="email"
               autoComplete="email"
               autoFocus
+              type="text"
+              placeholder="email"
+              value={email}
+              onChange={(e)=>setEmail(e.target.value)}
             />
-            <TextField
+            <input
               variant="outlined"
               margin="normal"
               required
@@ -177,35 +139,108 @@ function Login() {
               type="password"
               id="password"
               autoComplete="current-password"
+              type="password"
+              placeholder="password"
+              value={password}
+              onChange={(e)=>setPasword(e.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
             
-              <LoginButton />
-              <SignUpButton />
+              <button onClick={()=>PostData()}>Sign In</button>
+              <button>sign-up</button>
            
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link2 href="#" variant="body2">
                   Forgot password?
-                </Link>
+                </Link2>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link2 href="#" variant="body2">
                   {"Don't have an account? Sign Up"}
-                </Link>
+                </Link2>
               </Grid>
             </Grid>
             <Box mt={5}>
               <Copyright />
             </Box>
-          </form>
+          </div>
         </div>
       </Grid>
     </Grid>
   );
 }
 
-export default Login
+export default SignIn
+
+const PreviousSignIn  = ()=>{
+  const {state,dispatch} = useContext(UserContext)
+  const history = useHistory()
+  const [password,setPasword] = useState("")
+  const [email,setEmail] = useState("")
+  const PostData = ()=>{
+      if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
+          M.toast({html: "invalid email",classes:"#c62828 red darken-3"})
+          return
+      }
+      fetch("/signin",{
+          method:"post",
+          headers:{
+              "Content-Type":"application/json"
+          },
+          body:JSON.stringify({
+              password,
+              email
+          })
+      }).then(res=>res.json())
+      .then(data=>{
+          console.log(data)
+         if(data.error){
+            M.toast({html: data.error,classes:"#c62828 red darken-3"})
+         }
+         else{
+             localStorage.setItem("jwt",data.token)
+             localStorage.setItem("user",JSON.stringify(data.user))
+             dispatch({type:"USER",payload:data.user})
+             M.toast({html:"signedin success",classes:"#43a047 green darken-1"})
+             history.push('/')
+         }
+      }).catch(err=>{
+          console.log(err)
+      })
+  }
+ return (
+    <div className="mycard">
+        <div className="card auth-card input-field">
+          <h2>Weat</h2>
+          <input
+          type="text"
+          placeholder="email"
+          value={email}
+          onChange={(e)=>setEmail(e.target.value)}
+          />
+          <input
+          type="password"
+          placeholder="password"
+          value={password}
+          onChange={(e)=>setPasword(e.target.value)}
+          />
+          <button className="btn waves-effect waves-light #64b5f6 blue darken-1"
+          onClick={()=>PostData()}
+          >
+              Login
+          </button>
+          <h5>
+              <Link to="/signup">Dont have an account ?</Link>
+          </h5>
+          <h6>
+              <Link to="/reset">Forgot password ?</Link>
+          </h6>
+  
+      </div>
+    </div>
+ )
+}
