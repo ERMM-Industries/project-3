@@ -338,7 +338,7 @@ const SignIn = ()=>{
               <Link to="/reset">Forgot password?</Link>
               </Grid>
               <Grid item>
-              <Link to="/signup" variant="body2">Already have an account ?</Link>
+              <Link to="/signin" variant="body2">Already have an account ?</Link>
 
               </Grid>
             </Grid>
