@@ -17,7 +17,7 @@ import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-//import MenuLists from '../../components/MenuList/index'
+import MenuLists from '../../components/MenuList/index'
 import { mainListItems, secondaryListItems } from '../../components/listItems/listItems';
 import AdGrid from '../../components/AdGrid/AdGrid';
 import InputBase from '@material-ui/core/InputBase';
@@ -380,7 +380,7 @@ const NewCretePost = () => {
         </div>
         <IconButton color="inherit">
           <Badge badgeContent={4} color="secondary">
-            <MenuList />
+            <MenuLists />
           </Badge>
         </IconButton>
       </Toolbar>
