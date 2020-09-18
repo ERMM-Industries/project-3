@@ -1,5 +1,5 @@
 import React,{useEffect,createContext,useReducer,useContext} from 'react';
-import NavBar from './components/Navbar'
+// import NavBar from './components/Navbar'
 import "./App.css"
 import {BrowserRouter,Route,Switch,useHistory} from 'react-router-dom'
 import Home from './components/screens/Home'
@@ -76,18 +76,8 @@ function App() {
   return (
     <UserContext.Provider value={{state,dispatch}}>
     <BrowserRouter>
-      <NavBar />
+      {/* <NavBar /> */}
       <Routing />
-      
-    </BrowserRouter>
-    </UserContext.Provider>
-  );
-}
-
-//Below is what is currently on working admin
-function App() {
-  return (
-    <Router>
       <Route exact path="/" component={Login} />
       <Route exact path="/login" component={Login} />
       <div>
@@ -103,8 +93,33 @@ function App() {
         </Wrapper>
         {/* <Footer /> */}
       </div>
-    </Router>
+      
+    </BrowserRouter>
+    </UserContext.Provider>
   );
 }
+
+//Below is what is currently on working admin
+// function App() {
+//   return (
+//     <Router>
+//       <Route exact path="/" component={Login} />
+//       <Route exact path="/login" component={Login} />
+//       <div>
+//         {/* <Navbar /> */}
+//         <Wrapper>
+//           <Route exact path="/Dashboard/id:/" component={Dashboard} />
+//           <Route exact path="/Dashboard/id:/searchpage" component={SearchPage} />
+//           <Route exact path="/Dashboard/id:/friends" component={Friends} />
+//           <Route exact path="/Dashboard/id:/inputrecipe" component={InputRecipe} />
+//           <Route exact path="/Dashboard/id:/recipes" component={Recipes} />
+//           <Route exact path="/Dashboard/id:/singlerecipe/id:/" component={SingleRecipe} />
+//           <Route exact path="/Dashboard/id:/profilemui/id:/" component={ProfileMUI} />
+//         </Wrapper>
+//         {/* <Footer /> */}
+//       </div>
+//     </Router>
+//   );
+// }
 
 export default App;

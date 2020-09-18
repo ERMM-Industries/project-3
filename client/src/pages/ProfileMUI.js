@@ -160,7 +160,7 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
-function Profile() {
+function ProfileMUI() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -291,4 +291,4 @@ function Profile() {
   );
 }
 
-export default Profile
+export default ProfileMUI
