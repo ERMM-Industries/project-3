@@ -144,24 +144,27 @@ const SignIn = ()=>{
               value={password}
               onChange={(e)=>setPasword(e.target.value)}
             />
-            <FormControlLabel
+            {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
-            />
+            /> */}
             
-              <button onClick={()=>PostData()}>Sign In</button>
-              <button>sign-up</button>
+              <Button 
+              type = "submit"
+              fullWidth
+              variant= "contained"
+              color= "primary"
+              className={classes.submit}
+              onClick={()=>PostData()}>Sign In</Button>
+              
            
             <Grid container>
               <Grid item xs>
-                <Link2 href="#" variant="body2">
-                  Forgot password?
-                </Link2>
+              <Link to="/reset">Forgot password?</Link>
               </Grid>
               <Grid item>
-                <Link2 href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link2>
+              <Link to="/signup" variant="body2">Dont have an account ?</Link>
+                
               </Grid>
             </Grid>
             <Box mt={5}>
