@@ -1,5 +1,5 @@
 import React,{useEffect,createContext,useReducer,useContext} from 'react';
-// import NavBar from './components/Navbar'
+import NavBar from './components/Navbar'
 import "./App.css"
 import {BrowserRouter,Route,Switch,useHistory} from 'react-router-dom'
 import Home from './components/screens/Home'
