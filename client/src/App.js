@@ -12,7 +12,17 @@ import UserProfile from './components/screens/UserProfile'
 import SubscribedUserPosts from './components/screens/SubscribesUserPosts'
 import Reset from './components/screens/Reset'
 import NewPassword from './components/screens/Newpassword'
+import Dashboard from "./pages/Dashboard";
+import Friends from "./pages/Friends";
+import InputRecipe from "./pages/InputRecipe";
+import Login from "./pages/Login";
+import SearchPage from "./pages/SearchPage";
+import Wrapper from "./components/Wrapper";
+import Recipes from "./pages/Recipes";
+import SingleRecipe from "./pages/SingleRecipe";
+import ProfileMUI from "./pages/ProfileMUI";
 export const UserContext = createContext()
+
 
 
 const Routing = ()=>{
@@ -71,6 +81,29 @@ function App() {
       
     </BrowserRouter>
     </UserContext.Provider>
+  );
+}
+
+//Below is what is currently on working admin
+function App() {
+  return (
+    <Router>
+      <Route exact path="/" component={Login} />
+      <Route exact path="/login" component={Login} />
+      <div>
+        {/* <Navbar /> */}
+        <Wrapper>
+          <Route exact path="/Dashboard/id:/" component={Dashboard} />
+          <Route exact path="/Dashboard/id:/searchpage" component={SearchPage} />
+          <Route exact path="/Dashboard/id:/friends" component={Friends} />
+          <Route exact path="/Dashboard/id:/inputrecipe" component={InputRecipe} />
+          <Route exact path="/Dashboard/id:/recipes" component={Recipes} />
+          <Route exact path="/Dashboard/id:/singlerecipe/id:/" component={SingleRecipe} />
+          <Route exact path="/Dashboard/id:/profilemui/id:/" component={ProfileMUI} />
+        </Wrapper>
+        {/* <Footer /> */}
+      </div>
+    </Router>
   );
 }
 
