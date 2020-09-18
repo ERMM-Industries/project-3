@@ -10,9 +10,8 @@ import { List, ListItem } from "../List/index";
 import { Input, TextArea, FormBtn } from "../Form/index";
 //add link to navbar
 
-class InputRecipe2 extends Component {
+const InputRecipe2 = () => {
 
-  render() {
     //all the logic
     const history = useHistory();
     const [title, setTitle] = useState("");
@@ -75,11 +74,8 @@ class InputRecipe2 extends Component {
     return (
       <Container fluid>
         <Row>
-          <Col size="md-6">
-            <Jumbotron>
-              <h1>What recipe should I check?</h1>
-            </Jumbotron>
-            <form>
+          <Col size="md-12">
+            <div>
               <Input
                 type="text"
                 placeholder="title"
@@ -102,7 +98,7 @@ class InputRecipe2 extends Component {
                 name="recipe"
               />
               <div className="file-field input-field">
-                <div className="btn #64b5f6 blue darken-1">
+                <div className="btn #64b5f6 darken-1" style={{background: '#f50057'}}>
                   <span>Uplaod Image</span>
                   <input type="file" onChange={(e) => setImage(e.target.files[0])} />
                 </div>
@@ -111,7 +107,8 @@ class InputRecipe2 extends Component {
                 </div>
               </div>
               <button
-                className="btn waves-effect waves-light #64b5f6 blue darken-1"
+                className="btn waves-effect waves-light #64b5f6 darken-1"
+                style={{background: '#f50057'}}
                 onClick={() => postDetails()}
               >
                 Submit post
@@ -122,12 +119,11 @@ class InputRecipe2 extends Component {
               >
                 Submit Recipe
               </FormBtn> */}
-            </form>
+            </div>
           </Col>
         </Row>
       </Container>
     );
-  }
 }
 
 export default InputRecipe2;

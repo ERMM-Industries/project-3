@@ -11,23 +11,23 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
-import Container2 from '@material-ui/core/Container';
+import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import MenuLists from '../../components/MenuList/index'
+//import MenuLists from '../../components/MenuList/index'
 import { mainListItems, secondaryListItems } from '../../components/listItems/listItems';
 import AdGrid from '../../components/AdGrid/AdGrid';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
-import InputRecipe2 from '../../components/InputRecipe2/InputRecipe2'
-import LogoutButton from '../../components/LogoutButton/logout-button';
+import InputRecipe2 from '../../components/InputRecipe2/index'
+//import LogoutButton from '../../components/LogoutButton/logout-button';
 import { MenuList } from '@material-ui/core';
-import { Col, Row, Container } from "../../components/Grid";
-import { Input, TextArea, FormBtn } from "../../components/Form/index";
-import Jumbotron from "../../components/Jumbotron";
+//import { Col, Row, Container } from "../../components/Grid";
+//import { Input, TextArea, FormBtn } from "../../components/Form/index";
+//import Jumbotron from "../../components/Jumbotron";
 //everything above is for styling (fixed file routes for components)
 import React, { useState, useEffect } from "react";
 import M from "materialize-css";
@@ -139,8 +139,10 @@ const PreviousCretePost = () => {
   );
 };
 
+//export default PreviousCretePost;
 
 
+//styling stuff
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -273,18 +275,9 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
-const CretePost=() => {
-  const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+//styling stuff
 
-  //below is the logic of the page
+const NewCretePost = () => {
   const history = useHistory();
   const [title, setTitle] = useState("");
   const [ingredients, setIngredients] = useState(""); //added set ingredients
@@ -342,140 +335,98 @@ const CretePost=() => {
         console.log(err);
       });
   };
+  //logic is above
+
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(true);
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="absolute" color="pink" className={clsx(classes.appBar, open && classes.appBarShift)}>
-        <Toolbar className={classes.toolbar}>
-          <IconButton
-            edge="start"
-            color="secondary"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography component="h1" variant="h6" color="secondary" noWrap className={classes.title}>
-            Weat
-          </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
+    <CssBaseline />
+    <AppBar position="absolute" color="pink" className={clsx(classes.appBar, open && classes.appBarShift)}>
+      <Toolbar className={classes.toolbar}>
+        <IconButton
+          edge="start"
+          color="secondary"
+          aria-label="open drawer"
+          onClick={handleDrawerOpen}
+          className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Typography component="h1" variant="h6" color="secondary" noWrap className={classes.title}>
+          Weat
+        </Typography>
+        <div className={classes.search}>
+          <div className={classes.searchIcon}>
+            <SearchIcon />
           </div>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <MenuList />
-            </Badge>
-          </IconButton>
-          <LogoutButton />
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        variant="permanent"
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-        }}
-        open={open}
-      >
-        <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
-          </IconButton>
+          <InputBase
+            placeholder="Search…"
+            classes={{
+              root: classes.inputRoot,
+              input: classes.inputInput,
+            }}
+            inputProps={{ 'aria-label': 'search' }}
+          />
         </div>
-        <Divider />
-        <List>{mainListItems}</List>
-        <Divider />
-        <List>{secondaryListItems}</List>
-      </Drawer>
-      <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        <Container2 maxWidth="lg" className={classes.container}>
-          <Grid container spacing={3}>
-            {/* InputRecipe2 */}
-            <Grid item xs={12} md={8} lg={9}>
-              
-              {/* GIANT STUFF */}
-        <Container fluid>
-        <Row>
-          <Col size="md-6">
-            <Jumbotron>
-              <h1>What recipe should I check?</h1>
-            </Jumbotron>
-            <form>
-              <Input
-                type="text"
-                placeholder="title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                name="title"
-              />
-              <Input
-                type="text"
-                placeholder="ingredients"
-                value={ingredients}
-                onChange={(e) => setIngredients(e.target.value)}
-                name="ingredients"
-              />
-              <TextArea
-                type="text"
-                placeholder="instructions"
-                value={instructions}
-                onChange={(e) => setInstructions(e.target.value)}
-                name="recipe"
-              />
-              <div className="file-field input-field">
-                <div className="btn #64b5f6 blue darken-1">
-                  <span>Uplaod Image</span>
-                  <input type="file" onChange={(e) => setImage(e.target.files[0])} />
-                </div>
-                <div className="file-path-wrapper">
-                  <input className="file-path validate" type="text" />
-                </div>
-              </div>
-              <button
-                className="btn waves-effect waves-light #64b5f6 blue darken-1"
-                onClick={() => postDetails()}
-              >
-                Submit post
-              </button>
-              {/* <FormBtn
-                disabled={!(this.state.ingredients && this.state.title)}
-                onClick={this.handleFormSubmit}
-              >
-                Submit Recipe
-              </FormBtn> */}
-            </form>
-          </Col>
-        </Row>
-      </Container>
-              
-            </Grid>
-            {/* Recent AdGrid */}
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper className={fixedHeightPaper}>
-                <AdGrid />
-              </Paper>
-            </Grid>
+        <IconButton color="inherit">
+          <Badge badgeContent={4} color="secondary">
+            <MenuList />
+          </Badge>
+        </IconButton>
+      </Toolbar>
+    </AppBar>
+    <Drawer
+      variant="permanent"
+      classes={{
+        paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+      }}
+      open={open}
+    >
+      <div className={classes.toolbarIcon}>
+        <IconButton onClick={handleDrawerClose}>
+          <ChevronLeftIcon />
+        </IconButton>
+      </div>
+      <Divider />
+      <List>{mainListItems}</List>
+      <Divider />
+      <List>{secondaryListItems}</List>
+    </Drawer>
+    <main className={classes.content}>
+      <div className={classes.appBarSpacer} />
+      <Container maxWidth="lg" className={classes.container}>
+        <Grid container spacing={3}>
+          {/* InputRecipe2 */}
+          <Grid item xs={12} md={8} lg={9}>
+            
+              <InputRecipe2 />
             
           </Grid>
-          <Box pt={4}>
-            <Copyright />
-          </Box>
-        </Container2>
-      </main>
-    </div>
+          {/* Recent AdGrid */}
+          <Grid item xs={12} md={4} lg={3}>
+            <Paper className={fixedHeightPaper}>
+              <AdGrid />
+            </Paper>
+          </Grid>
+          
+        </Grid>
+        <Box pt={4}>
+          <Copyright />
+        </Box>
+      </Container>
+    </main>
+  </div>
   );
-}
+};
 
-export default CretePost;
+export default NewCretePost;
