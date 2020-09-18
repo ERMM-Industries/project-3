@@ -11,25 +11,29 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
-import Container from '@material-ui/core/Container';
+import Container2 from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import MenuLists from '../components/MenuList/index'
-import { mainListItems, secondaryListItems } from '../components/listItems/listItems';
-import AdGrid from '../components/AdGrid/AdGrid';
+import MenuLists from '../../components/MenuList/index'
+import { mainListItems, secondaryListItems } from '../../components/listItems/listItems';
+import AdGrid from '../../components/AdGrid/AdGrid';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
-import InputRecipe2 from '../components/InputRecipe2/InputRecipe2'
-import LogoutButton from '../components/LogoutButton/logout-button';
+import InputRecipe2 from '../../components/InputRecipe2/InputRecipe2'
+import LogoutButton from '../../components/LogoutButton/logout-button';
 import { MenuList } from '@material-ui/core';
-//everything above is for styling
+import { Col, Row, Container } from "../../components/Grid";
+import { Input, TextArea, FormBtn } from "../../components/Form/index";
+import Jumbotron from "../../components/Jumbotron";
+//everything above is for styling (fixed file routes for components)
 import React, { useState, useEffect } from "react";
 import M from "materialize-css";
 import { useHistory } from "react-router-dom";
-const CretePost = () => {
+
+const PreviousCretePost = () => {
   const history = useHistory();
   const [title, setTitle] = useState("");
   const [ingredients, setIngredients] = useState(""); //added set ingredients
@@ -135,7 +139,6 @@ const CretePost = () => {
   );
 };
 
-export default CretePost;
 
 
 function Copyright() {
@@ -270,7 +273,7 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
-const Recipes=() => {
+const CretePost=() => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -280,6 +283,65 @@ const Recipes=() => {
     setOpen(false);
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+  //below is the logic of the page
+  const history = useHistory();
+  const [title, setTitle] = useState("");
+  const [ingredients, setIngredients] = useState(""); //added set ingredients
+  const [instructions, setInstructions] = useState(""); //added set instructions
+  const [image, setImage] = useState("");
+  const [url, setUrl] = useState("");
+  useEffect(() => {
+    if (url) {
+      fetch("/createpost", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("jwt"),
+        },
+        body: JSON.stringify({
+          title,
+          ingredients, //added ingredients
+          instructions, //added instructions
+          pic: url,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.error) {
+            M.toast({ html: data.error, classes: "#c62828 red darken-3" });
+          } else {
+            M.toast({
+              html: "Created post Successfully",
+              classes: "#43a047 green darken-1",
+            });
+            history.push("/");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [url]);
+
+  const postDetails = () => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "weat-project"); // added database preset
+    data.append("cloud_name", "dgav9dwqa");
+    //api cloudinary call
+    fetch("https://api.cloudinary.com/v1_1/dgav9dwqa/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setUrl(data.url);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div className={classes.root}>
@@ -338,12 +400,65 @@ const Recipes=() => {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
+        <Container2 maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
             {/* InputRecipe2 */}
             <Grid item xs={12} md={8} lg={9}>
               
-                <InputRecipe2 />
+              {/* GIANT STUFF */}
+        <Container fluid>
+        <Row>
+          <Col size="md-6">
+            <Jumbotron>
+              <h1>What recipe should I check?</h1>
+            </Jumbotron>
+            <form>
+              <Input
+                type="text"
+                placeholder="title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                name="title"
+              />
+              <Input
+                type="text"
+                placeholder="ingredients"
+                value={ingredients}
+                onChange={(e) => setIngredients(e.target.value)}
+                name="ingredients"
+              />
+              <TextArea
+                type="text"
+                placeholder="instructions"
+                value={instructions}
+                onChange={(e) => setInstructions(e.target.value)}
+                name="recipe"
+              />
+              <div className="file-field input-field">
+                <div className="btn #64b5f6 blue darken-1">
+                  <span>Uplaod Image</span>
+                  <input type="file" onChange={(e) => setImage(e.target.files[0])} />
+                </div>
+                <div className="file-path-wrapper">
+                  <input className="file-path validate" type="text" />
+                </div>
+              </div>
+              <button
+                className="btn waves-effect waves-light #64b5f6 blue darken-1"
+                onClick={() => postDetails()}
+              >
+                Submit post
+              </button>
+              {/* <FormBtn
+                disabled={!(this.state.ingredients && this.state.title)}
+                onClick={this.handleFormSubmit}
+              >
+                Submit Recipe
+              </FormBtn> */}
+            </form>
+          </Col>
+        </Row>
+      </Container>
               
             </Grid>
             {/* Recent AdGrid */}
@@ -357,8 +472,10 @@ const Recipes=() => {
           <Box pt={4}>
             <Copyright />
           </Box>
-        </Container>
+        </Container2>
       </main>
     </div>
   );
 }
+
+export default CretePost;
