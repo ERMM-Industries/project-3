@@ -15,11 +15,14 @@ import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Grid from '@material-ui/core/Grid';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Button from '@material-ui/core/Button';
 
 //above is styling
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../App";
+import { Icon } from '@material-ui/core';
 
 
 
@@ -175,7 +178,7 @@ const Temp = () => {
         //   console.log(result)
         const newData = data.map((item) => {
           if (item._id == result._id) {
-            return result;
+            return { ...item, likes: result.likes }
           } else {
             return item;
           }
@@ -202,7 +205,7 @@ const Temp = () => {
         //   console.log(result)
         const newData = data.map((item) => {
           if (item._id == result._id) {
-            return result;
+            return { ...item, likes: result.likes }
           } else {
             return item;
           }
@@ -231,7 +234,7 @@ const Temp = () => {
         console.log(result);
         const newData = data.map((item) => {
           if (item._id == result._id) {
-            return result;
+            return { ...item, likes: result.likes }
           } else {
             return item;
           }
@@ -384,7 +387,7 @@ function NewRecipeCard() {
         //   console.log(result)
         const newData = data.map((item) => {
           if (item._id == result._id) {
-            return result;
+            return { ...item, likes: result.likes }
           } else {
             return item;
           }
@@ -411,7 +414,7 @@ function NewRecipeCard() {
         //   console.log(result)
         const newData = data.map((item) => {
           if (item._id == result._id) {
-            return result;
+            return { ...item, likes: result.likes }
           } else {
             return item;
           }
@@ -440,7 +443,7 @@ function NewRecipeCard() {
         console.log(result);
         const newData = data.map((item) => {
           if (item._id == result._id) {
-            return result;
+            return { ...item, likes: result.likes }
           } else {
             return item;
           }
@@ -480,7 +483,11 @@ function NewRecipeCard() {
             title= {item.title}
             
             subheader= {item.postedBy.name}
-          />
+
+
+          >
+          </CardHeader>
+        
           <CardMedia
             className={classes.media}
             image={item.photo}
@@ -515,6 +522,15 @@ function NewRecipeCard() {
 
 
             {item.likes.length}
+
+            <IconButton style={{marginLeft: 'auto'}}>
+              {item.postedBy._id == state._id && (
+                <DeleteIcon
+                onClick={() => {deletePost(item._id)}}
+                style={{float: 'right'}}
+                />
+              )}
+            </IconButton>
 
           </CardActions>
           </Card>

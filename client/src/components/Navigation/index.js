@@ -28,7 +28,7 @@ import { MenuList } from '@material-ui/core';
 //import { Col, Row, Container } from "../../components/Grid";
 //import { Input, TextArea, FormBtn } from "../../components/Form/index";
 //import Jumbotron from "../../components/Jumbotron";
-
+import NewLogout from '../NewLogout/NewLogout'
 import React from "react";
 
 
@@ -178,24 +178,12 @@ const NavBar = () => {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="secondary" noWrap className={classes.title}>
-            Weat
+          <img src="/logo.png" alt="Weat" width={150} />
           </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
           <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <MenuLists />
+          <NewLogout />
+            <Badge badgeContent={0} color="secondary">
+            <MenuList />
             </Badge>
           </IconButton>
         </Toolbar>

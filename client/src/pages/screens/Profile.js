@@ -30,6 +30,7 @@ import MenuList from '../../components/MenuList/index'
 //above is imported for styling
 import React, { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../App";
+import NavBar from '../../components/Navigation/index';
 
 
 
@@ -244,57 +245,7 @@ const Profile = () => {
   return (
     <div className={classes.root}>
     <CssBaseline />
-    <AppBar position="absolute" color="pink" className={clsx(classes.appBar, open && classes.appBarShift)}>
-      <Toolbar className={classes.toolbar}>
-        <IconButton
-          edge="start"
-          color="secondary"
-          aria-label="open drawer"
-          onClick={handleDrawerOpen}
-          className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
-        >
-          <MenuIcon />
-        </IconButton>
-        <Typography component="h1" variant="h6" color="secondary" noWrap className={classes.title}>
-          Weat
-        </Typography>
-        <div className={classes.search}>
-          <div className={classes.searchIcon}>
-            <SearchIcon />
-          </div>
-          <InputBase
-            placeholder="Search…"
-            classes={{
-              root: classes.inputRoot,
-              input: classes.inputInput,
-            }}
-            inputProps={{ 'aria-label': 'search' }}
-          />
-        </div>
-        <IconButton color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <MenuList />
-          </Badge>
-        </IconButton>
-      </Toolbar>
-    </AppBar>
-    <Drawer
-      variant="permanent"
-      classes={{
-        paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-      }}
-      open={open}
-    >
-      <div className={classes.toolbarIcon}>
-        <IconButton onClick={handleDrawerClose}>
-          <ChevronLeftIcon />
-        </IconButton>
-      </div>
-      <Divider />
-      <List>{mainListItems}</List>
-      <Divider />
-      <List>{secondaryListItems}</List>
-    </Drawer>
+    <NavBar />
     <main className={classes.content}>
       <div className={classes.appBarSpacer} />
       <Container maxWidth="lg" className={classes.container}>
@@ -367,12 +318,7 @@ const Profile = () => {
     </div>
             
           </Grid>
-          {/* Recent AdGrid */}
-          <Grid item xs={12} md={4} lg={3}>
-            <Paper className={fixedHeightPaper}>
-              <AdGrid />
-            </Paper>
-          </Grid>
+          
           
         </Grid>
         <Box pt={4}>
