@@ -479,7 +479,7 @@ function NewRecipeCard() {
             
             title= {item.title}
             
-            subheader= {item.createdAt.substr(0, 10)}
+            subheader= {item.postedBy.name}
           />
           <CardMedia
             className={classes.media}
@@ -488,7 +488,7 @@ function NewRecipeCard() {
           />
           <CardContent>
             <Typography variant="body2" color="textSecondary" component="p">
-            Ingredients: {item.ingredients}
+            {item.createdAt.substr(0, 10)}
             </Typography>
           </CardContent>
           <CardActions disableSpacing>
