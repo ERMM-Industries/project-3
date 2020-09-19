@@ -407,10 +407,7 @@ const NewProfile  = ()=>{
     <NavBar />
     <main className={classes.content}>
       <div className={classes.appBarSpacer} />
-      <Container maxWidth="lg" className={classes.container}>
-        <Grid container spacing={3}>
           {/* ProfileCard */}
-          <Grid item xs={12} md={8} lg={4}>
           <>
        {userProfile ?
        <div style={{maxWidth:"550px",margin:"0px auto"}}>
@@ -476,16 +473,11 @@ const NewProfile  = ()=>{
        
        </>
  
-          </Grid>
           {/* RecipeCards */}
           
           
-        </Grid>
         
-        <Box pt={4}>
-          <Copyright />
-        </Box>
-      </Container>
+
 
     </main>
   </div>

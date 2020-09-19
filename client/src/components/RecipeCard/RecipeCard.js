@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1
   },
   cardSize: {
-    height: 420,
+    height: "auto",
     width: 400,
     margin: 10 
   },
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
   expand: {
     transform: 'rotate(0deg)',
-    marginLeft: 'auto',
+    justify:"center",
     transition: theme.transitions.create('transform', {
       duration: theme.transitions.duration.shortest,
     }),
@@ -532,7 +532,29 @@ function NewRecipeCard() {
               )}
             </IconButton>
 
-          </CardActions>
+        <IconButton
+          className={clsx(classes.expand, {
+            [classes.expandOpen]: expanded,
+          })}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon />
+        </IconButton>
+      </CardActions>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent>
+          <Typography paragraph>Ingredients:</Typography>
+          <Typography paragraph>
+            {item.ingredients}
+          </Typography>
+          <Typography paragraph>
+            {item.instructions}
+          </Typography>
+        </CardContent>
+      </Collapse>
+
           </Card>
         </div>
       );

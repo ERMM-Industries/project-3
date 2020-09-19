@@ -219,6 +219,7 @@ const Home  = ()=>{
                                 <img src={item.photo}/>
                             </div>
                             <div className="card-content">
+
                             <i className="material-icons" style={{color:"red"}}>favorite</i>
                             {item.likes.includes(state._id)
                             ? 
@@ -234,7 +235,9 @@ const Home  = ()=>{
                            
                                 <h6>{item.likes.length} likes</h6>
                                 <h6>{item.title}</h6>
-                                <p>{item.body}</p>
+                                <p>{item.ingredients}</p>
+                                <br></br>
+                                <p>{item.instructions}</p>
                                 {
                                     item.comments.map(record=>{
                                         return(
