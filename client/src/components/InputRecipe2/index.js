@@ -99,7 +99,7 @@ const InputRecipe2 = () => {
               />
               <div className="file-field input-field">
                 <div className="btn #64b5f6 darken-1" style={{background: '#f50057'}}>
-                  <span>Uplaod Image</span>
+                  <span>Upload Image</span>
                   <input type="file" onChange={(e) => setImage(e.target.files[0])} />
                 </div>
                 <div className="file-path-wrapper">
