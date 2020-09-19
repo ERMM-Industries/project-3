@@ -105,7 +105,7 @@ router.post('/reset-password',(req,res)=>{
              user.save().then((result)=>{
                  transporter.sendMail({
                      to:user.email,
-                     from:"no-replay@insta.com",
+                     from:"official.weat.app@gmail.com",
                      subject:"password reset",
                      html:`
                      <p>You requested for password reset</p>
