@@ -14,6 +14,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Grid from '@material-ui/core/Grid';
+
 //above is styling
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
@@ -24,6 +26,14 @@ import { UserContext } from "../../App";
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
+  },
+  root2: {
+    flexGrow: 1
+  },
+  cardSize: {
+    height: 420,
+    width: 400,
+    margin: 20 
   },
   media: {
     height: 0,
@@ -460,11 +470,11 @@ function NewRecipeCard() {
   };
 
   return (
-    <div className="home">
+    <Grid container className={classes.root2} spacing={2}>
     {data.map((item) => {
       return (
         <div key={item._id}>
-          <Card className={classes.root}>
+          <Card className={classes.cardSize}>
           <CardHeader
             
             title= {item.title}
@@ -536,65 +546,8 @@ function NewRecipeCard() {
         </div>
       );
     })}
-  </div>
+  </Grid>
   );
 }
 
 export default NewRecipeCard;
-
-/*
-<Card className={classes.root}>
-<CardHeader
-  avatar={
-    <Avatar aria-label="recipe" className={classes.avatar}>
-      R
-    </Avatar>
-  }
-  action={
-    <IconButton aria-label="settings">
-      <MoreVertIcon />
-    </IconButton>
-  }
-  title="Shrimp and Chorizo Paella"
-  name="September 14, 2016"
-/>
-<CardMedia
-  className={classes.media}
-  image="/static/images/cards/paella.jpg"
-  title="Paella dish"
-/>
-<CardContent>
-  <Typography variant="body2" color="textSecondary" component="p">
-    ingredients...
-  </Typography>
-</CardContent>
-<CardActions disableSpacing>
-  <IconButton aria-label="add to favorites">
-    <FavoriteIcon />
-  </IconButton>
-  <IconButton aria-label="share">
-    <ShareIcon />
-  </IconButton>
-  <IconButton
-    className={clsx(classes.expand, {
-      [classes.expandOpen]: expanded,
-    })}
-    onClick={handleExpandClick}
-    aria-expanded={expanded}
-    aria-label="show more"
-  >
-    <ExpandMoreIcon />
-  </IconButton>
-</CardActions>
-<Collapse in={expanded} timeout="auto" unmountOnExit>
-  <CardContent>
-    <Typography paragraph>Instructions:</Typography>
-    <Typography paragraph>
-      instructions...
-    </Typography>
-
-  </CardContent>
-</Collapse>
-</Card>
-
-*/

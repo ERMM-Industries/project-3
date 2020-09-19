@@ -220,12 +220,6 @@ const Home = () => {
           <RecipeCard />
             
           </Grid>
-          {/* Recent AdGrid */}
-          <Grid item xs={12} md={4} lg={3}>
-            <Paper className={fixedHeightPaper}>
-              <AdGrid />
-            </Paper>
-          </Grid>
           
         </Grid>
         <Box pt={4}>
