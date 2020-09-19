@@ -256,7 +256,7 @@ const Profile = () => {
           <MenuIcon />
         </IconButton>
         <Typography component="h1" variant="h6" color="secondary" noWrap className={classes.title}>
-          Weat
+        <img src="/logo.png" alt="Weat" height={60} />
         </Typography>
         <div className={classes.search}>
           <div className={classes.searchIcon}>
