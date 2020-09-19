@@ -12,6 +12,7 @@ import UserProfile from './pages/screens/UserProfile'
 import SubscribedUserPosts from './pages/screens/SubscribesUserPosts'
 import Reset from './pages/screens/Reset'
 import NewPassword from './pages/screens/Newpassword'
+import SingleRecipe from "./pages/screens/SingleRecipe"
 // import Dashboard from "./pages/Dashboard";
 // import Friends from "./pages/Friends";
 // import InputRecipe from "./pages/InputRecipe";
@@ -64,6 +65,9 @@ const Routing = ()=>{
         <Reset/>
       </Route>
       <Route path="/reset/:token">
+        <NewPassword />
+      </Route>
+      <Route path="/singlerecipe/:userid/:postid">
         <NewPassword />
       </Route>
       
