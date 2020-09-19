@@ -67,7 +67,7 @@ const Routing = ()=>{
       <Route path="/reset/:token">
         <NewPassword />
       </Route>
-      <Route path="/singlerecipe/:userid/:postid">
+      <Route path="/singlerecipe/:postid">
         <NewPassword />
       </Route>
       
