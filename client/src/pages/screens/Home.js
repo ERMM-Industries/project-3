@@ -13,6 +13,8 @@ import { UserContext } from "../../App";
 import { Link } from "react-router-dom";
 import NavBar from "../../components/Navigation/index"
 import Copyright from "../../components/Copyright/index"
+import RecipeCard from '../../components/RecipeCard/RecipeCard'
+
 
 //styling stuff
 
@@ -85,7 +87,7 @@ const Home = () => {
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   //styling stuff above
-  
+
   const [data, setData] = useState([]);
   const { state, dispatch } = useContext(UserContext);
   useEffect(() => {
@@ -215,7 +217,7 @@ const Home = () => {
           {/* InputRecipe2 */}
           <Grid item xs={12} md={8} lg={9}>
             
-          
+          <RecipeCard />
             
           </Grid>
           {/* Recent AdGrid */}

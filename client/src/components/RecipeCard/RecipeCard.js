@@ -1,4 +1,3 @@
-import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -15,6 +14,12 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+//above is styling
+import React, { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
+import { UserContext } from "../../App";
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -122,88 +127,456 @@ function RecipeCard() {
     </Card>
   );
 }
-export default RecipeCard
+//export default RecipeCard
 
 
-// const temp = () => {
-//   <div className="home">
-//   {data.map((item) => {
-//     return (
-//       <div className="card home-card" key={item._id}>
-//         <h5 style={{ padding: "5px" }}>
-//           <Link
-//             to={
-//               item.postedBy._id !== state._id
-//                 ? "/profile/" + item.postedBy._id
-//                 : "/profile"
-//             }
-//           >
-//             {item.postedBy.name}
-//           </Link>{" "}
-//           {item.postedBy._id == state._id && (
-//             <i
-//               className="material-icons"
-//               style={{
-//                 float: "right",
-//               }}
-//               onClick={() => deletePost(item._id)}
-//             >
-//               delete
-//             </i>
-//           )}
-//         </h5>
-//         <div className="card-image">
-//           <img src={item.photo} />
-//         </div>
-//         <div className="card-content">
-//           <i className="material-icons" style={{ color: "red" }}>
-//             favorite
-//           </i>
-//           {item.likes.includes(state._id) ? (
-//             <i
-//               className="material-icons"
-//               onClick={() => {
-//                 unlikePost(item._id);
-//               }}
-//             >
-//               thumb_down
-//             </i>
-//           ) : (
-//             <i
-//               className="material-icons"
-//               onClick={() => {
-//                 likePost(item._id);
-//               }}
-//             >
-//               thumb_up
-//             </i>
-//           )}
+const Temp = () => {
+  const [data, setData] = useState([]);
+  const { state, dispatch } = useContext(UserContext);
+  useEffect(() => {
+    fetch("/allpost", {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        setData(result.posts);
+      });
+  }, []);
 
-//           <h6>{item.likes.length} likes</h6>
-//           <h6>{item.title}</h6>
-//           <p>{item.ingredients}</p>
-//           <p>{item.instructions}</p>
-//           {item.comments.map((record) => {
-//             return (
-//               <h6 key={record._id}>
-//                 <span style={{ fontWeight: "500" }}>
-//                   {record.postedBy.name}
-//                 </span>{" "}
-//                 {record.text}
-//               </h6>
-//             );
-//           })}
-//           <form
-//             onSubmit={(e) => {
-//               e.preventDefault();
-//               makeComment(e.target[0].value, item._id);
-//             }}
-//           >
-//             <input type="text" placeholder="add a comment" />
-//           </form>
-//         </div>
-//       </div>
-//     );
-//   })}
-// </div>
-// }
+  const likePost = (id) => {
+    fetch("/like", {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+      body: JSON.stringify({
+        postId: id,
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        //   console.log(result)
+        const newData = data.map((item) => {
+          if (item._id == result._id) {
+            return result;
+          } else {
+            return item;
+          }
+        });
+        setData(newData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const unlikePost = (id) => {
+    fetch("/unlike", {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+      body: JSON.stringify({
+        postId: id,
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        //   console.log(result)
+        const newData = data.map((item) => {
+          if (item._id == result._id) {
+            return result;
+          } else {
+            return item;
+          }
+        });
+        setData(newData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const makeComment = (text, postId) => {
+    fetch("/comment", {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+      body: JSON.stringify({
+        postId,
+        text,
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        const newData = data.map((item) => {
+          if (item._id == result._id) {
+            return result;
+          } else {
+            return item;
+          }
+        });
+        setData(newData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const deletePost = (postid) => {
+    fetch(`/deletepost/${postid}`, {
+      method: "delete",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        const newData = data.filter((item) => {
+          return item._id !== result._id;
+        });
+        setData(newData);
+      });
+  };
+  return(
+    <div className="home">
+    {data.map((item) => {
+      return (
+        <div className="card home-card" key={item._id}>
+          <h5 style={{ padding: "5px" }}>
+            <Link
+              to={
+                item.postedBy._id !== state._id
+                  ? "/profile/" + item.postedBy._id
+                  : "/profile"
+              }
+            >
+              {item.postedBy.name}
+            </Link>{" "}
+            {item.postedBy._id == state._id && (
+              <i
+                className="material-icons"
+                style={{
+                  float: "right",
+                }}
+                onClick={() => deletePost(item._id)}
+              >
+                delete
+              </i>
+            )}
+          </h5>
+          <div className="card-image">
+            <img src={item.photo} />
+          </div>
+          <div className="card-content">
+            <i className="material-icons" style={{ color: "red" }}>
+              favorite
+            </i>
+            {item.likes.includes(state._id) ? (
+              <i
+                className="material-icons"
+                onClick={() => {
+                  unlikePost(item._id);
+                }}
+              >
+                thumb_down
+              </i>
+            ) : (
+              <i
+                className="material-icons"
+                onClick={() => {
+                  likePost(item._id);
+                }}
+              >
+                thumb_up
+              </i>
+            )}
+
+            <h6>{item.likes.length} likes</h6>
+            <h6>{item.title}</h6>
+            <p>{item.ingredients}</p>
+            <p>{item.instructions}</p>
+            {item.comments.map((record) => {
+              return (
+                <h6 key={record._id}>
+                  <span style={{ fontWeight: "500" }}>
+                    {record.postedBy.name}
+                  </span>{" "}
+                  {record.text}
+                </h6>
+              );
+            })}
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                makeComment(e.target[0].value, item._id);
+              }}
+            >
+              <input type="text" placeholder="add a comment" />
+            </form>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+  )
+}
+
+function NewRecipeCard() {
+  const classes = useStyles();
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
+  //newlogic below
+
+  const [data, setData] = useState([]);
+  const { state, dispatch } = useContext(UserContext);
+  useEffect(() => {
+    fetch("/allpost", {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        setData(result.posts);
+      });
+  }, []);
+
+  const likePost = (id) => {
+    fetch("/like", {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+      body: JSON.stringify({
+        postId: id,
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        //   console.log(result)
+        const newData = data.map((item) => {
+          if (item._id == result._id) {
+            return result;
+          } else {
+            return item;
+          }
+        });
+        setData(newData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const unlikePost = (id) => {
+    fetch("/unlike", {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+      body: JSON.stringify({
+        postId: id,
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        //   console.log(result)
+        const newData = data.map((item) => {
+          if (item._id == result._id) {
+            return result;
+          } else {
+            return item;
+          }
+        });
+        setData(newData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const makeComment = (text, postId) => {
+    fetch("/comment", {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+      body: JSON.stringify({
+        postId,
+        text,
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        const newData = data.map((item) => {
+          if (item._id == result._id) {
+            return result;
+          } else {
+            return item;
+          }
+        });
+        setData(newData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const deletePost = (postid) => {
+    fetch(`/deletepost/${postid}`, {
+      method: "delete",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        const newData = data.filter((item) => {
+          return item._id !== result._id;
+        });
+        setData(newData);
+      });
+  };
+
+  return (
+    <div className="home">
+    {data.map((item) => {
+      return (
+        <div key={item._id}>
+          <Card className={classes.root}>
+          <CardHeader
+            avatar={
+              <Avatar aria-label="recipe" className={classes.avatar}>
+                R
+              </Avatar>
+            }
+            action={
+              <IconButton aria-label="settings">
+                <MoreVertIcon />
+              </IconButton>
+            }
+            title= {item.title}
+            
+            subheader= {item.createdAt.substr(0, 10)}
+          />
+          <CardMedia
+            className={classes.media}
+            image={item.photo}
+            title= "card image"
+          />
+          <CardContent>
+            <Typography variant="body2" color="textSecondary" component="p">
+            Ingredients: {item.ingredients}
+            </Typography>
+          </CardContent>
+          <CardActions disableSpacing>
+            <IconButton aria-label="add to favorites">
+              <FavoriteIcon />
+            </IconButton>
+            <IconButton aria-label="share">
+              <ShareIcon />
+            </IconButton>
+            <IconButton
+              className={clsx(classes.expand, {
+                [classes.expandOpen]: expanded,
+              })}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label="show more"
+            >
+              <ExpandMoreIcon />
+            </IconButton>
+          </CardActions>
+          <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <CardContent>
+              <Typography paragraph>Instructions:</Typography>
+              <Typography paragraph>
+              {item.instructions}
+              </Typography>
+
+            </CardContent>
+          </Collapse>
+          </Card>
+        </div>
+      );
+    })}
+  </div>
+  );
+}
+
+export default NewRecipeCard;
+
+/*
+<Card className={classes.root}>
+<CardHeader
+  avatar={
+    <Avatar aria-label="recipe" className={classes.avatar}>
+      R
+    </Avatar>
+  }
+  action={
+    <IconButton aria-label="settings">
+      <MoreVertIcon />
+    </IconButton>
+  }
+  title="Shrimp and Chorizo Paella"
+  name="September 14, 2016"
+/>
+<CardMedia
+  className={classes.media}
+  image="/static/images/cards/paella.jpg"
+  title="Paella dish"
+/>
+<CardContent>
+  <Typography variant="body2" color="textSecondary" component="p">
+    ingredients...
+  </Typography>
+</CardContent>
+<CardActions disableSpacing>
+  <IconButton aria-label="add to favorites">
+    <FavoriteIcon />
+  </IconButton>
+  <IconButton aria-label="share">
+    <ShareIcon />
+  </IconButton>
+  <IconButton
+    className={clsx(classes.expand, {
+      [classes.expandOpen]: expanded,
+    })}
+    onClick={handleExpandClick}
+    aria-expanded={expanded}
+    aria-label="show more"
+  >
+    <ExpandMoreIcon />
+  </IconButton>
+</CardActions>
+<Collapse in={expanded} timeout="auto" unmountOnExit>
+  <CardContent>
+    <Typography paragraph>Instructions:</Typography>
+    <Typography paragraph>
+      instructions...
+    </Typography>
+
+  </CardContent>
+</Collapse>
+</Card>
+
+*/
