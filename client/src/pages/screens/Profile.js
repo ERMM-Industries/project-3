@@ -303,7 +303,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
-      <div className="gallery">
+      <div className="gallery" style={{margin: "5px"}}>
         {mypics.map((item) => {
           return (
             <img
