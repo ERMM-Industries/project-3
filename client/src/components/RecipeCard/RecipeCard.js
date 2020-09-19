@@ -516,32 +516,7 @@ function NewRecipeCard() {
 
             {item.likes.length}
 
-
-
-            {/* <IconButton aria-label="share">
-              <ShareIcon />
-            </IconButton> */}
-
-            <IconButton
-              className={clsx(classes.expand, {
-                [classes.expandOpen]: expanded,
-              })}
-              onClick={handleExpandClick}
-              aria-expanded={expanded}
-              aria-label="show more"
-            >
-              <ExpandMoreIcon />
-            </IconButton>
           </CardActions>
-          <Collapse in={expanded} timeout="auto" unmountOnExit>
-            <CardContent>
-              <Typography paragraph>Instructions:</Typography>
-              <Typography paragraph>
-              {item.instructions}
-              </Typography>
-
-            </CardContent>
-          </Collapse>
           </Card>
         </div>
       );
