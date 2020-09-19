@@ -1,8 +1,8 @@
 import React, { useContext, useRef, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { UserContext } from "../App";
+import { UserContext } from "../../App";
 import M from "materialize-css";
-const NavBar = () => {
+const NewLogout = () => {
   const searchModal = useRef(null);
   const [search, setSearch] = useState("");
   const [userDetails, setUserDetails] = useState([]);
@@ -19,18 +19,17 @@ const NavBar = () => {
             data-target="modal1"
             className="large material-icons modal-trigger"
             style={{ color: "black" }}
-          >
-            search
+          >search
           </i>
         </li>,
         <li key="2">
-          <Link to="/profile">Profile</Link>
+          <Link to="/profile">Dashboard</Link>
         </li>,
         <li key="3">
-          <Link to="/create">Create Post</Link>
+          <Link to="/create">Submit New</Link>
         </li>,
         <li key="4">
-          <Link to="/myfollowingpost">My following Posts</Link>
+          <Link to="/myfollowingpost">Fellow Chefs</Link>
         </li>,
         <li key="5">
           <button
@@ -77,9 +76,7 @@ const NavBar = () => {
     <nav>
       <div className="nav-wrapper white">
         <Link to={state ? "/" : "/signin"} className="brand-logo left">
-        <div>
-        <img style={{width:"150px", borderRadius:"20px"}} src="/logo.png" alt="Logo"/>
-        </div>
+        
         </Link>
         <ul id="nav-mobile" className="right">
           {renderList()}
@@ -129,4 +126,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default NewLogout;
