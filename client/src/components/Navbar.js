@@ -77,7 +77,9 @@ const NavBar = () => {
     <nav>
       <div className="nav-wrapper white">
         <Link to={state ? "/" : "/signin"} className="brand-logo left">
-          Weat
+        <div>
+        <img style={{width:"150px", borderRadius:"50px"}} src="/logo.png" alt="Logo"/>
+        </div>
         </Link>
         <ul id="nav-mobile" className="right">
           {renderList()}
