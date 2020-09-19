@@ -100,11 +100,11 @@ const NewLogout = () => {
               return (
                 <Link
                   to={
-                    item._id !== state._id ? "/profile/" + item._id : "/profile"
+                    item._id !== state._id ? "/profile/"+item._id : '/profile'
                   }
                   onClick={() => {
                     M.Modal.getInstance(searchModal.current).close();
-                    setSearch("");
+                    setSearch('');
                   }}
                 >
                   <li className="collection-item">{item.email}</li>
