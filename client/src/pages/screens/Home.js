@@ -210,6 +210,7 @@ const Home = () => {
 
     <NavBar />
     
+    
     <main className={classes.content}>
       <div className={classes.appBarSpacer} />
       <Container maxWidth="lg" className={classes.container}>
