@@ -42,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     backgroundColor: red[500],
   },
+  likeButtonPink: {
+    color: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)'
+  }
 }));
 
 function RecipeCard() {
@@ -463,16 +466,7 @@ function NewRecipeCard() {
         <div key={item._id}>
           <Card className={classes.root}>
           <CardHeader
-            avatar={
-              <Avatar aria-label="recipe" className={classes.avatar}>
-                R
-              </Avatar>
-            }
-            action={
-              <IconButton aria-label="settings">
-                <MoreVertIcon />
-              </IconButton>
-            }
+            
             title= {item.title}
             
             subheader= {item.createdAt.substr(0, 10)}
@@ -488,12 +482,36 @@ function NewRecipeCard() {
             </Typography>
           </CardContent>
           <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
+
+
+            <IconButton aria-label="add to favorites" >
+
+              {item.likes.includes(state._id) ? (
+              <FavoriteIcon 
+              color = "secondary"
+              onClick={() => {
+                unlikePost(item._id);
+              }}
+              />
+              ) : (
+                <FavoriteIcon 
+                onClick={() => {
+                  likePost(item._id);
+                }}
+                />
+              )}
+
             </IconButton>
-            <IconButton aria-label="share">
+
+
+            {item.likes.length}
+
+
+
+            {/* <IconButton aria-label="share">
               <ShareIcon />
-            </IconButton>
+            </IconButton> */}
+
             <IconButton
               className={clsx(classes.expand, {
                 [classes.expandOpen]: expanded,
