@@ -12,7 +12,7 @@ import ListAltIcon from '@material-ui/icons/ListAlt';
 
 export const mainListItems = (
   <div>
-    <a href="/Dashboard/id:/"><ListItem button>
+    <a href="/profile"><ListItem button>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
@@ -20,7 +20,7 @@ export const mainListItems = (
     </ListItem>
     </a>
 
-    <a href="/Dashboard/id:/recipes/">
+    <a href="/">
     <ListItem button>
       <ListItemIcon>
         <RestaurantIcon />
@@ -29,7 +29,7 @@ export const mainListItems = (
     </ListItem>
     </a>
 
-    <a href="/Dashboard/id:/friends/">
+    <a href="/myfollowingpost/">
     <ListItem button>
       <ListItemIcon>
         <EmojiPeopleIcon />
@@ -38,7 +38,7 @@ export const mainListItems = (
     </ListItem>
     </a>
 
-    <a href="/Dashboard/id:/inputrecipe">
+    <a href="/create/">
     <ListItem button>
       <ListItemIcon>
         <PlusOneIcon />
@@ -47,7 +47,7 @@ export const mainListItems = (
     </ListItem>
     </a>
 
-    <a href="/Dashboard/id:/inputrecipe">
+    <a href="/profile">
     <ListItem button>
       <ListItemIcon>
         <SettingsApplicationsIcon />
