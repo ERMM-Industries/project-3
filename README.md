@@ -1,7 +1,7 @@
 ## project-3 (Weat)
 
 Idea
-- WEAT.COM - Social media cooking recipe app. Add your unique recipe on app and share it with other users. You can add other people on your profile to get easy access to your favorite fellow chef and their recipes.
+- https://weat-recipe.herokuapp.com/signin - Social media cooking recipe app. Add your unique recipe on app and share it with other users. You can add other people on your profile to get easy access to your favorite fellow chef and their recipes.
 
 Packages to use
 - React
