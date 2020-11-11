@@ -12,6 +12,15 @@ import ListAltIcon from '@material-ui/icons/ListAlt';
 
 export const mainListItems = (
   <div>
+
+<a href="/profile"><ListItem button>
+      <ListItemIcon>
+        <DashboardIcon />
+      </ListItemIcon>
+      <ListItemText primary="Profile" />
+    </ListItem>
+    </a>
+
     <a href="/profile"><ListItem button>
       <ListItemIcon>
         <DashboardIcon />
