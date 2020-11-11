@@ -1,4 +1,3 @@
-import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles';
@@ -18,13 +17,27 @@ import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import { mainListItems, secondaryListItems } from '../components/listItems/listItems';
-import Feed from '../components/Feed/Feed';
-import AdGrid from '../components/AdGrid/AdGrid';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import { mainListItems, secondaryListItems } from '../../components/listItems/listItems';
+import AdGrid from '../../components/AdGrid/AdGrid';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
-import MenuList from '../components/MenuList/index';
+import MenuList from '../../components/MenuList/index'
 
+//import RecipeCard from '../../components/RecipeCard/RecipeCard'
+//import LogoutButton from '../../components/LogoutButton/logout-button';
+//import ProfileCard from '../../components/ProfileCard/ProfileCard';
+//above is imported for styling
+import React, { useEffect, useState, useContext } from "react";
+import { UserContext } from "../../App";
+import NavBar from '../../components/Navigation/index';
+import { Dashboard } from '@material-ui/icons';
+
+
+
+//export default Profile;
+
+//style stuff
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -156,8 +169,69 @@ const useStyles = makeStyles((theme) => ({
   },
   
 }));
+//style stuff
+const Dashboard = () => {
 
-function Dashboard() {
+  const [mypics, setPics] = useState([]);
+  const { state, dispatch } = useContext(UserContext);
+  const [image, setImage] = useState("");
+  useEffect(() => {
+    fetch("/mypost", {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        setPics(result.mypost);
+      });
+  }, []);
+  useEffect(() => {
+    if (image) {
+      const data = new FormData();
+      data.append("file", image);
+      data.append("upload_preset", "weat-project"); //added database preset
+      data.append("cloud_name", "dgav9dwqa");
+      //api cloudinary call
+      fetch("https://api.cloudinary.com/v1_1/dgav9dwqa/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          fetch("/updatepic", {
+            method: "put",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("jwt"),
+            },
+            body: JSON.stringify({
+              pic: data.url,
+            }),
+          })
+            .then((res) => res.json())
+            .then((result) => {
+              console.log(result);
+              localStorage.setItem(
+                "user",
+                JSON.stringify({ ...state, pic: result.pic })
+              );
+              dispatch({ type: "UPDATEPIC", payload: result.pic });
+              //window.location.reload()
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [image]);
+  const updatePhoto = (file) => {
+    setImage(file);
+  };
+
+  //logic top of this
+
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -167,86 +241,221 @@ function Dashboard() {
     setOpen(false);
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="absolute" color="pink" className={clsx(classes.appBar, open && classes.appBarShift)}>
-        <Toolbar className={classes.toolbar}>
-          <IconButton
-            edge="start"
-            color="secondary"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography component="h1" variant="h6" color="secondary" noWrap className={classes.title}>
-            Weat
-          </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
+    <CssBaseline />
+    <NavBar />
+    <main className={classes.content}>
+      <div className={classes.appBarSpacer} />
+      <Container maxWidth="lg" className={classes.container}>
+        <Grid container spacing={3}>
+          {/* InputRecipe2 */}
+          <Grid item xs={12} md={8} lg={9}>
+            
+              {/* <InputRecipe2 /> */}
+              <div style={{ maxWidth: "550px", margin: "0px auto" }}>
+      <div
+        style={{
+          margin: "18px 0px",
+          borderBottom: "1px solid grey",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+          }}
+        >
+          <div>
+            <img
+              style={{ width: "160px", height: "160px", borderRadius: "80px" }}
+              src={state ? state.pic : "loading"}
             />
           </div>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <MenuList />
-            </Badge>
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        variant="permanent"
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-        }}
-        open={open}
-      >
-        <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
-          </IconButton>
+          <div>
+            <h4>{state ? state.name : "loading"}</h4>
+            <h5>{state ? state.email : "loading"}</h5>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: "108%",
+              }}
+            >
+              <h6>{mypics.length} posts</h6>
+              <h6>{state ? state.followers.length : "0"} followers</h6>
+              <h6>{state ? state.following.length : "0"} following</h6>
+            </div>
+          </div>
         </div>
-        <Divider />
-        <List>{mainListItems}</List>
-        <Divider />
-        <List>{secondaryListItems}</List>
-      </Drawer>
-      <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" maxHeight="36ch" className={classes.container}>
-          <Grid container spacing={3}>
-            {/* Feed */}
-            <Grid item sm={12} md={8} lg={8}>
-              <Paper className={fixedHeightPaper}>
-                <Feed />
-              </Paper>
-            </Grid>
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper className={fixedHeightPaper}>
-                <AdGrid />
-              </Paper>
-              Advertisement
-            </Grid>
+
+        <div className="file-field input-field" style={{ margin: "10px" }}>
+          <div className="btn #64b5f6 blue darken-1">
+            <span>Update pic</span>
+            <input
+              type="file"
+              onChange={(e) => updatePhoto(e.target.files[0])}
+            />
+          </div>
+          <div className="file-path-wrapper">
+            <input className="file-path validate" type="text" />
+          </div>
+        </div>
+      </div>
+      <div className="gallery" style={{margin: "5px"}}>
+        {mypics.map((item) => {
+          return (
+            <img
+              key={item._id}
+              className="item"
+              src={item.photo}
+              alt={item.title}
+            />
+          );
+        })}
+      </div>
+    </div>
             
           </Grid>
-          <Box pt={4}>
-            <Copyright />
-          </Box>
-        </Container>
-      </main>
+          
+          
+        </Grid>
+        <Box pt={4}>
+          <Copyright />
+        </Box>
+      </Container>
+    </main>
+  </div>
+  );
+    
+};
+
+export default Dashboard;
+
+/*
+const oldProfile = () => {
+  const [mypics, setPics] = useState([]);
+  const { state, dispatch } = useContext(UserContext);
+  const [image, setImage] = useState("");
+  useEffect(() => {
+    fetch("/mypost", {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        setPics(result.mypost);
+      });
+  }, []);
+  useEffect(() => {
+    if (image) {
+      const data = new FormData();
+      data.append("file", image);
+      data.append("upload_preset", "weat-project"); //added database preset
+      data.append("cloud_name", "dgav9dwqa");
+      //api cloudinary call
+      fetch("https://api.cloudinary.com/v1_1/dgav9dwqa/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          fetch("/updatepic", {
+            method: "put",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("jwt"),
+            },
+            body: JSON.stringify({
+              pic: data.url,
+            }),
+          })
+            .then((res) => res.json())
+            .then((result) => {
+              console.log(result);
+              localStorage.setItem(
+                "user",
+                JSON.stringify({ ...state, pic: result.pic })
+              );
+              dispatch({ type: "UPDATEPIC", payload: result.pic });
+              //window.location.reload()
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [image]);
+  const updatePhoto = (file) => {
+    setImage(file);
+  };
+  return (
+    <div style={{ maxWidth: "550px", margin: "0px auto" }}>
+      <div
+        style={{
+          margin: "18px 0px",
+          borderBottom: "1px solid grey",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+          }}
+        >
+          <div>
+            <img
+              style={{ width: "160px", height: "160px", borderRadius: "80px" }}
+              src={state ? state.pic : "loading"}
+            />
+          </div>
+          <div>
+            <h4>{state ? state.name : "loading"}</h4>
+            <h5>{state ? state.email : "loading"}</h5>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: "108%",
+              }}
+            >
+              <h6>{mypics.length} posts</h6>
+              <h6>{state ? state.followers.length : "0"} followers</h6>
+              <h6>{state ? state.following.length : "0"} following</h6>
+            </div>
+          </div>
+        </div>
+
+        <div className="file-field input-field" style={{ margin: "10px" }}>
+          <div className="btn #64b5f6 blue darken-1">
+            <span>Update pic</span>
+            <input
+              type="file"
+              onChange={(e) => updatePhoto(e.target.files[0])}
+            />
+          </div>
+          <div className="file-path-wrapper">
+            <input className="file-path validate" type="text" />
+          </div>
+        </div>
+      </div>
+      <div className="gallery">
+        {mypics.map((item) => {
+          return (
+            <img
+              key={item._id}
+              className="item"
+              src={item.photo}
+              alt={item.title}
+            />
+          );
+        })}
+      </div>
     </div>
   );
-}
-
-export default Dashboard
+};
+*/
