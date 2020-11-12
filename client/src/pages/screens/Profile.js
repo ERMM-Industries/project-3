@@ -311,6 +311,7 @@ const Profile = () => {
               className="item"
               src={item.photo}
               alt={item.title}
+              style={{width: "140px", height: "140px", margin: "5px"}}
             />
           );
         })}
