@@ -21,7 +21,7 @@ export const mainListItems = (
     </ListItem>
     </a>
 
-    <a href="/dashboard"><ListItem button>
+    <a href="/myfollowingpost"><ListItem button>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>

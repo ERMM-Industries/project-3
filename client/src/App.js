@@ -13,6 +13,7 @@ import SubscribedUserPosts from './pages/screens/SubscribesUserPosts'
 import Reset from './pages/screens/Reset'
 import NewPassword from './pages/screens/Newpassword'
 import SingleRecipe from "./pages/screens/SingleRecipe"
+import Dashboard from './pages/Dashboard'
 // import Dashboard from "./pages/Dashboard";
 // import Friends from "./pages/Friends";
 // import InputRecipe from "./pages/InputRecipe";
@@ -69,6 +70,9 @@ const Routing = ()=>{
       </Route>
       <Route path="/singlerecipe/:postid">
         <NewPassword />
+      </Route>
+      <Route path="/myfollowingpost/">
+        <Dashboard />
       </Route>
       
     </Switch>
